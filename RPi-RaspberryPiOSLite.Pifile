@@ -5,6 +5,16 @@ RUN apt-get install -y cowsay
 
 RUN /usr/games/cowsay "huhu pimod~"
 
+ENV FIRST_USER_NAME test-user
+ENV FIRST_USER_PASSWORD password
+
+RUN raspi-config nonint do_hostname test-user
+RUN raspi-config nonint do_wifi_country US
+RUN raspi-config nonint do_change_timezone America/Chicago
+RUN raspi-config nonint do_change_locale en_US.UTF-8
+RUN sudo raspi-config nonint do_configure_keyboard us
+RUN sudo raspi-config nonint disable_raspi_config_at_boot
+
 INSTALL files /files
 INSTALL hello.cpp /
 RUN g++ -o hello /hello.cpp
