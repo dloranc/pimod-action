@@ -1,17 +1,10 @@
 FROM https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2023-05-03/2023-05-03-raspios-bullseye-arm64-lite.img.xz
 
-# PUMP 200M
-
 RUN apt-get update
 RUN apt-get install -y cowsay
 
 RUN /usr/games/cowsay "huhu pimod~"
 
-# test a multiline command
-RUN bash -c "
-    echo hello
-    echo world
-"
-
+INSTALL files /files
 INSTALL hello.cpp /
 RUN g++ -o hello /hello.cpp
