@@ -3,12 +3,12 @@ FROM https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_ar
 RUN apt-get update
 
 RUN usermod -l test-user pi
+(echo password; echo password) | RUN passwd test-user
 
 RUN systemctl stop userconfig
 RUN systemctl disable userconfig
 RUN systemctl mask userconfig
 
-(echo password; echo password) | RUN passwd test-user
 
 RUN raspi-config nonint do_wifi_country US
 RUN raspi-config nonint do_change_timezone America/Chicago
