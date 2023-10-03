@@ -5,7 +5,7 @@ RUN apt-get install -y cowsay
 
 RUN /usr/games/cowsay "huhu pimod~"
 
-RUN useradd -m test-user
+RUN usermod -l test-user pi
 
 (echo password; echo password) | RUN passwd test-user
 
