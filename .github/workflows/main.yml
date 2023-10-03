@@ -10,6 +10,6 @@ jobs:
         with:
           submodules: recursive
       - name: Run pimod OpenWRT example
-        uses: Natur40/pimod@master
+        uses: Nature40/pimod@master
         with:
           pifile: RPi-RaspberryPiOSLite.Pifile
