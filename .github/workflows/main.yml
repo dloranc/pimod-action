@@ -17,4 +17,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Release image
-          path: RPi-RaspberryPiOSLite.img.xz
+          path: RPi-RaspberryPiOSLite.img
