@@ -13,19 +13,6 @@ jobs:
         uses: Nature40/pimod@master
         with:
           pifile: RPi-RaspberryPiOSLite.Pifile
-      - name: List files
-        run: |
-          echo "ls -la"
-          echo ""
-          ls -la
-
-          echo "ls /"
-          echo ""
-          ls /
-
-          echo "ls /home"
-          echo ""
-          ls /home
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
