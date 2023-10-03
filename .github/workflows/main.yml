@@ -12,9 +12,9 @@ jobs:
       - name: Run pimod example
         uses: Nature40/pimod@master
         with:
-          pifile: RPi-RaspberryPiOSLite.Pifile
+          pifile: raspberry-pi-lite.Pifile
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
           name: Release image
-          path: RPi-RaspberryPiOSLite.img
+          path: raspberry-pi-lite.img
