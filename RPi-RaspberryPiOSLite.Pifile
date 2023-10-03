@@ -13,4 +13,5 @@ RUN bash -c "
     echo world
 "
 
-RUN g++ -o hello hello.cpp
+INSTALL hello.cpp /
+RUN g++ -o hello /hello.cpp
