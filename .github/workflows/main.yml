@@ -13,3 +13,11 @@ jobs:
         uses: Nature40/pimod@master
         with:
           pifile: RPi-RaspberryPiOSLite.Pifile
+      - name: List files
+        run: |
+          echo "ls"
+          ls
+          echo "ls /"
+          ls /
+          echo "ls /home"
+          ls /home
