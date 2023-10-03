@@ -7,6 +7,10 @@ RUN /usr/games/cowsay "huhu pimod~"
 
 RUN usermod -l test-user pi
 
+RUN systemctl stop userconfig
+RUN systemctl disable userconfig
+RUN systemctl mask userconfig
+
 (echo password; echo password) | RUN passwd test-user
 
 RUN raspi-config nonint do_wifi_country US
