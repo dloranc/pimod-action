@@ -15,15 +15,20 @@ jobs:
           pifile: RPi-RaspberryPiOSLite.Pifile
       - name: List files
         run: |
-          echo "ls"
-          ls
+          echo "ls -la"
+          echo ""
+          ls -la
+
           echo "ls /"
+          echo ""
           ls /
+
           echo "ls /home"
+          echo ""
           ls /home
       - name: Compress the image
         run: |
-          xz RPi-RaspberryPiOSLite.img
+          sudo xz RPi-RaspberryPiOSLite.img
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
