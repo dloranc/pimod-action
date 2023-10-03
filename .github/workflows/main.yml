@@ -21,3 +21,8 @@ jobs:
           ls /
           echo "ls /home"
           ls /home
+      - name: Upload release image
+        uses: actions/upload-artifact@v3
+        with:
+          name: Release image
+          path: RPi-RaspberryPiOSLite.img
