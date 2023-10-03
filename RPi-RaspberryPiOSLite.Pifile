@@ -13,16 +13,4 @@ RUN bash -c "
     echo world
 "
 
-# test environment vars via ENV
-ENV FOO BAR
-RUN sh -c 'echo FOO = $FOO'
-RUN echo FOO = @@FOO@@
-
-# also test the ENV var on the HOST
-HOST sh -c 'echo FOO = $FOO'
-HOST echo FOO = @@FOO@@
-
-# unset FOO again
-ENV FOO
-RUN sh -c 'echo FOO = $FOO'
-RUN echo FOO = @@FOO@@
+RUN g++ -o hello hello.cpp
