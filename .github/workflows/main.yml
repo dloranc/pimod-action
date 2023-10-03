@@ -26,9 +26,6 @@ jobs:
           echo "ls /home"
           echo ""
           ls /home
-      - name: Compress the image
-        run: |
-          sudo xz -1 RPi-RaspberryPiOSLite.img
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
