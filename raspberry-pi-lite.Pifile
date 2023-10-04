@@ -4,9 +4,9 @@ RUN apt-get update
 
 # from https://github.com/RPi-Distro/userconf-pi/blob/master/userconf-service
 
-RUN /usr/lib/userconf-pi/userconf pi test-user ""
-RUN echo "test-user:password" | chpasswd
-RUN chvt 1
+RUN sudo /usr/lib/userconf-pi/userconf pi test-user ""
+RUN sudo echo "test-user:password" | chpasswd
+RUN sudo chvt 1
 
 RUN systemctl stop userconfig
 RUN systemctl disable userconfig
