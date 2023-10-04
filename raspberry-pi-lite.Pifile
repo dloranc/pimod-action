@@ -1,6 +1,7 @@
 FROM https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2023-05-03/2023-05-03-raspios-bullseye-arm64-lite.img.xz
 
 RUN apt-get update
+RUN apt-get install python3-pip -y
 
 # from https://github.com/RPi-Distro/userconf-pi/blob/master/userconf-service
 
@@ -20,3 +21,6 @@ INSTALL files /home/test-user
 INSTALL hello.cpp /home/test-user
 RUN g++ -o /home/test-user/hello /home/test-user/hello.cpp
 RUN rm /home/test-user/hello.cpp
+
+INSTALL requirements.txt /home/test-user/requirements.txt
+RUN python -m pip install -r /home/test-user/requirements.txt
