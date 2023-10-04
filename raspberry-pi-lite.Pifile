@@ -6,9 +6,7 @@ RUN apt-get update
 
 RUN /usr/lib/userconf-pi/userconf pi test-user ""
 (echo password; echo password) | RUN passwd test-user
-RUN sudo chvt 1
 
-RUN systemctl stop userconfig
 RUN systemctl disable userconfig
 RUN systemctl mask userconfig
 
