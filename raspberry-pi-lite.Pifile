@@ -21,6 +21,12 @@ INSTALL files /home/test-user
 INSTALL hello.cpp /home/test-user
 RUN g++ -o /home/test-user/hello /home/test-user/hello.cpp
 RUN rm /home/test-user/hello.cpp
-
 INSTALL requirements.txt /home/test-user/requirements.txt
 RUN python -m pip install -r /home/test-user/requirements.txt
+
+RUN bash -c "
+  ls /home/test-user
+  echo '# [[ -z \$DISPLAY && \$XDG_VTNR -eq 1 ]] && startx' >> /home/test-user/.profile
+  echo ""
+  cat /home/test-user/.profile
+"

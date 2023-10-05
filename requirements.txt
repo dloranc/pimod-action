@@ -1,7 +1,1 @@
-PyYAML==6.0.1
 requests==2.31.0
-requests-toolbelt==1.0.0
-gpiozero==1.6.2
-RPi.GPIO==0.7.1
-watchdog==1.0.1
-netifaces==0.11.0
