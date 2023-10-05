@@ -30,3 +30,10 @@ RUN bash -c "
   echo ""
   cat /home/test-user/.profile
 "
+
+RUN bash -c "
+systemctl set-default multi-user.target
+echo '[Service]' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+echo 'ExecStart=' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+echo 'ExecStart=-/sbin/agetty --autologin test-user --noclear %I \$TERM' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
+"
