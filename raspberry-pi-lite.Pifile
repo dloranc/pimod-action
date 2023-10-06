@@ -11,6 +11,26 @@ RUN /usr/lib/userconf-pi/userconf pi test-user ""
 RUN systemctl disable userconfig
 RUN systemctl mask userconfig
 
+# disable Bluetooth
+RUN bash -c "
+  echo 'dtoverlay=disable-bt' >> /boot/config.txt
+"
+
+# disable sound card
+RUN bash -c "
+  sed -i 's/dtparam=audio=on/#dtparam=audio=on/' /boot/config.txt
+"
+
+# enable overclock
+RUN bash -c "
+cat >> /boot/config.txt <<EOF
+over_voltage=6
+arm_freq=1800
+gpu_freq=750
+EOF
+"
+RUN cat /boot/config.txt
+
 RUN raspi-config nonint do_wifi_country US
 RUN raspi-config nonint do_change_timezone America/Chicago
 RUN raspi-config nonint do_change_locale en_US.UTF-8
