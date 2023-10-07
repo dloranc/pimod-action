@@ -1,7 +1,6 @@
 FROM https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2023-05-03/2023-05-03-raspios-bullseye-arm64-lite.img.xz
 
 RUN apt-get update
-RUN apt-get install python3-pip -y
 
 # from https://github.com/RPi-Distro/userconf-pi/blob/master/userconf-service
 
@@ -11,45 +10,11 @@ RUN /usr/lib/userconf-pi/userconf pi test-user ""
 RUN systemctl disable userconfig
 RUN systemctl mask userconfig
 
-# disable Bluetooth
-RUN bash -c "
-  echo 'dtoverlay=disable-bt' >> /boot/config.txt
-"
-
-# disable sound card
-RUN bash -c "
-  sed -i 's/dtparam=audio=on/#dtparam=audio=on/' /boot/config.txt
-"
-
-# enable overclock
-RUN bash -c "
-cat >> /boot/config.txt <<EOF
-over_voltage=6
-arm_freq=1800
-gpu_freq=750
-EOF
-"
-RUN cat /boot/config.txt
-
 RUN raspi-config nonint do_wifi_country US
 RUN raspi-config nonint do_change_timezone America/Chicago
 RUN raspi-config nonint do_change_locale en_US.UTF-8
 RUN raspi-config nonint do_configure_keyboard us
 RUN raspi-config nonint disable_raspi_config_at_boot
-
-INSTALL files /home/test-user
-INSTALL hello.cpp /home/test-user
-RUN g++ -o /home/test-user/hello /home/test-user/hello.cpp
-RUN rm /home/test-user/hello.cpp
-INSTALL requirements.txt /home/test-user/requirements.txt
-RUN python -m pip install -r /home/test-user/requirements.txt
-
-RUN bash -c "
-  ls /home/test-user
-  echo '# [[ -z \$DISPLAY && \$XDG_VTNR -eq 1 ]] && startx' >> /home/test-user/.profile
-  echo ""
-  cat /home/test-user/.profile
-"
 
 RUN bash -c "
 systemctl set-default multi-user.target
