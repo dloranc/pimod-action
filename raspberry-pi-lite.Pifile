@@ -1,7 +1,6 @@
 FROM https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2023-05-03/2023-05-03-raspios-bullseye-arm64-lite.img.xz
 
 RUN apt-get update
-RUN apt-get upgrade -y
 RUN apt-get install iptables -y
 
 # from https://github.com/RPi-Distro/userconf-pi/blob/master/userconf-service
@@ -18,10 +17,9 @@ RUN raspi-config nonint do_change_locale en_US.UTF-8
 RUN raspi-config nonint do_configure_keyboard us
 RUN raspi-config nonint disable_raspi_config_at_boot
 
-RUN echo "prepare firewall (iptables) configuration"
-
-RUN apt-get install nftables -y
-RUN nft --help
+# RUN echo "prepare firewall (iptables) configuration"
+# RUN apt-get install nftables -y
+# RUN nft --help
 # RUN iptables-nft -F
 #
 # # Allows all loopback (lo0) traffic and drop all traffic to 127/8 that doesn't use lo0

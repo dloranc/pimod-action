@@ -13,8 +13,11 @@ jobs:
         uses: Nature40/pimod@master
         with:
           pifile: raspberry-pi-lite.Pifile
+      - name: Compress
+        run: |
+          zip raspberry-pi-lite.img.zip raspberry-pi-lite.img
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
           name: Release image
-          path: raspberry-pi-lite.img
+          path: raspberry-pi-lite.img.zip
