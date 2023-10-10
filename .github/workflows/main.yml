@@ -19,7 +19,7 @@ jobs:
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
-          name: Release image
+          name: Compressed
           path: raspberry-pi-lite.img.zip
 
   without-compression:
@@ -36,5 +36,5 @@ jobs:
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
-          name: Release image
+          name: Not compressed
           path: raspberry-pi-lite.img
