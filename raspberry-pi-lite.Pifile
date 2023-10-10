@@ -17,7 +17,9 @@ RUN raspi-config nonint do_change_locale en_US.UTF-8
 RUN raspi-config nonint do_configure_keyboard us
 RUN raspi-config nonint disable_raspi_config_at_boot
 
-# RUN echo "prepare firewall (iptables) configuration"
+RUN echo "prepare firewall (iptables) configuration"
+RUN iptables-legacy -L
+
 # RUN apt-get install nftables -y
 # RUN nft --help
 # RUN iptables-nft -F
