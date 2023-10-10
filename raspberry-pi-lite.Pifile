@@ -20,8 +20,9 @@ RUN raspi-config nonint disable_raspi_config_at_boot
 RUN echo "prepare firewall (iptables) configuration"
 RUN lsmod
 
-# RUN apt-get install nftables -y
-# RUN nft --help
+RUN apt-get install nftables -y
+RUN reboot
+RUN nft --help
 # RUN iptables-nft -F
 #
 # # Allows all loopback (lo0) traffic and drop all traffic to 127/8 that doesn't use lo0
