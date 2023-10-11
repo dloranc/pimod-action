@@ -1,4 +1,33 @@
-FROM https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2023-05-03/2023-05-03-raspios-bullseye-arm64-lite.img.xz
+#INSTALL IMAGE_URL /
+#
+#RUN bash -c "
+#  echo 'ls -la'
+#  ls -la
+#"
+#
+#ENV IMAGE_URL $(cat /IMAGE_URL)
+#
+#RUN bash -c "
+#  echo @@IMAGE_URL@@
+#"
+
+FROM @@IMAGE_URL@@
+
+
+
+#HOST bash -c "
+#  export
+#"
+#
+#RUN bash -c "
+#  export
+#"
+#
+#ENV USER $(whoami)
+#
+#RUN bash -c "
+#  echo $USER
+#"
 
 RUN apt-get update
 
@@ -15,28 +44,3 @@ RUN raspi-config nonint do_change_timezone America/Chicago
 RUN raspi-config nonint do_change_locale en_US.UTF-8
 RUN raspi-config nonint do_configure_keyboard us
 RUN raspi-config nonint disable_raspi_config_at_boot
-
-RUN echo "prepare firewall (iptables) configuration"
-RUN apt-get install iptables-persistent -y
-RUN bash -c "
-cat > /etc/iptables/rules.v4 <<EOF
-*filter
-:INPUT ACCEPT [0:0]
-:FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
--A INPUT -i lo -j ACCEPT
--A INPUT -d 127.0.0.0/8 ! -i lo -j REJECT --reject-with icmp-port-unreachable
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
--A INPUT -j REJECT --reject-with icmp-port-unreachable
--A FORWARD -j REJECT --reject-with icmp-port-unreachable
--A OUTPUT -j ACCEPT
-COMMIT
-EOF
-"
-
-RUN bash -c "
-systemctl set-default multi-user.target
-echo '[Service]' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
-echo 'ExecStart=' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
-echo 'ExecStart=-/sbin/agetty --autologin test-user --noclear %I \$TERM' >> /etc/systemd/system/getty@tty1.service.d/autologin.conf
-"

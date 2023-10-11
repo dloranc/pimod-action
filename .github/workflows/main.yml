@@ -1,14 +1,23 @@
 name: tests
 on: push
 
+env:
+  IMAGE_URL: https://downloads.raspberrypi.org/raspios_lite_arm64/images/raspios_lite_arm64-2023-05-03/2023-05-03-raspios-bullseye-arm64-lite.img.xz
+
 jobs:
-  with-compression:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check environment variables
+        run: |
+          export
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Save environment variables to file
+        run: |
+          sed -i "s/@@IMAGE_URL@@/$IMAGE_URL/" ./raspberry-pi-lite.Pifile
       - name: Run pimod example
         uses: Nature40/pimod@master
         with:
@@ -21,20 +30,3 @@ jobs:
         with:
           name: Compressed
           path: raspberry-pi-lite.img.zip
-
-  without-compression:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-      - name: Run pimod example
-        uses: Nature40/pimod@master
-        with:
-          pifile: raspberry-pi-lite.Pifile
-      - name: Upload release image
-        uses: actions/upload-artifact@v3
-        with:
-          name: Not compressed
-          path: raspberry-pi-lite.img
