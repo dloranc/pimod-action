@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check environment variables
         run: |
-          export
+          env
 
       - name: Checkout repository
         uses: actions/checkout@v3
