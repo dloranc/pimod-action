@@ -17,7 +17,7 @@ jobs:
           submodules: recursive
       - name: Save environment variables to file
         run: |
-          sed -i "s/@@IMAGE_URL@@/$IMAGE_URL/" ./raspberry-pi-lite.Pifile
+          sed -i "s|##IMAGE_URL##|$IMAGE_URL|" raspberry-pi-lite.Pifile
       - name: Run pimod example
         uses: Nature40/pimod@master
         with:

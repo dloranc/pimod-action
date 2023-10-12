@@ -1,33 +1,4 @@
-#INSTALL IMAGE_URL /
-#
-#RUN bash -c "
-#  echo 'ls -la'
-#  ls -la
-#"
-#
-#ENV IMAGE_URL $(cat /IMAGE_URL)
-#
-#RUN bash -c "
-#  echo @@IMAGE_URL@@
-#"
-
-FROM @@IMAGE_URL@@
-
-
-
-#HOST bash -c "
-#  export
-#"
-#
-#RUN bash -c "
-#  export
-#"
-#
-#ENV USER $(whoami)
-#
-#RUN bash -c "
-#  echo $USER
-#"
+FROM ##IMAGE_URL##
 
 RUN apt-get update
 
