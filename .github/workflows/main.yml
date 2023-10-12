@@ -22,9 +22,9 @@ jobs:
         run: |
           COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})
 
-          COMMIT_FIRST_LINE=$(echo "$COMMIT_MESSAGE" | tr ' ' '_')
+          COMMIT_FIRST_LINE=$(echo "$COMMIT_MESSAGE" | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
 
-          echo "::set-output name=commit_message::$COMMIT_FIRST_LINE"
+          echo "commit_message=$COMMIT_FIRST_LINE" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Save environment variables to file
