@@ -20,15 +20,17 @@ jobs:
       - name: Create variables
         id: variables
         run: |
-          $IMAGE_NAME=$(basename $IMAGE_URL | cut -d "." -f 1)
+          IMAGE_NAME=$(basename $IMAGE_URL | cut -d "." -f 1)
           echo "image_name=$IMAGE_NAME" >> $GITHUB_OUTPUT
 
           VERSION=$(cat VERSION)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
           COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})
-          COMMIT_FIRST_LINE=$(echo "$COMMIT_MESSAGE" | tr ' ' '_' | tr '[:upper:]' '[:lower:]') | tr -d "[]"
+          COMMIT_FIRST_LINE=$(echo "$COMMIT_MESSAGE" | tr ' ' '_' | tr '[:upper:]' '[:lower:]' | tr -d "[]")
           echo "commit_message=$COMMIT_FIRST_LINE" >> $GITHUB_OUTPUT
+
+          echo "$IMAGE_NAME-v$VERSION-prod-$COMMIT_FIRST_LINE"
         shell: bash
 
       - name: Save environment variables to file
