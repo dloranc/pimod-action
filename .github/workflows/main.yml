@@ -17,13 +17,17 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Extract and Convert Commit Message
-        id: convert
+      - name: Create variables
+        id: variables
         run: |
+          $IMAGE_NAME=$(basename $IMAGE_URL | cut -d "." -f 1)
+          echo "image_name=$IMAGE_NAME" >> $GITHUB_OUTPUT
+
+          VERSION=$(cat VERSION)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
           COMMIT_MESSAGE=$(git log --format=%B -n 1 ${{ github.sha }})
-
-          COMMIT_FIRST_LINE=$(echo "$COMMIT_MESSAGE" | tr ' ' '_' | tr '[:upper:]' '[:lower:]')
-
+          COMMIT_FIRST_LINE=$(echo "$COMMIT_MESSAGE" | tr ' ' '_' | tr '[:upper:]' '[:lower:]') | tr -d "[]"
           echo "commit_message=$COMMIT_FIRST_LINE" >> $GITHUB_OUTPUT
         shell: bash
 
@@ -43,5 +47,5 @@ jobs:
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.convert.outputs.commit_message }}
+          name: ${{ steps.variables.outputs.image_name }}-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
           path: raspberry-pi-lite.img.zip
