@@ -31,7 +31,6 @@ jobs:
           echo "commit_message=$COMMIT_FIRST_LINE" >> $GITHUB_OUTPUT
 
           echo "$IMAGE_NAME-v$VERSION-prod-$COMMIT_FIRST_LINE"
-        shell: bash
 
       - name: Save environment variables to file
         run: |
