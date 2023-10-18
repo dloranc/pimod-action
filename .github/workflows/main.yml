@@ -45,6 +45,12 @@ jobs:
         run: |
           zip raspberry-pi-lite.img.zip raspberry-pi-lite.img
 
+      - name: Upload C++ app
+        uses: actions/upload-artifact@v3
+        with:
+          name: hello-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
+          path: hello
+
       - name: Upload release image
         uses: actions/upload-artifact@v3
         with:

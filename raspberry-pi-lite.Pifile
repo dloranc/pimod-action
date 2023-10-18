@@ -15,3 +15,9 @@ RUN raspi-config nonint do_change_timezone America/Chicago
 RUN raspi-config nonint do_change_locale en_US.UTF-8
 RUN raspi-config nonint do_configure_keyboard us
 RUN raspi-config nonint disable_raspi_config_at_boot
+
+INSTALL hello.cpp /home/test-user
+RUN g++ -o /home/test-user/hello /home/test-user/hello.cpp
+RUN rm /home/test-user/hello.cpp
+
+EXTRACT "/home/test-user/hello" "./hello"
