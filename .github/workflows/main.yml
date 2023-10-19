@@ -41,26 +41,9 @@ jobs:
         with:
           pifile: raspberry-pi-lite.Pifile
 
-      - name: Compress
-        run: |
-          zip raspberry-pi-lite.img.zip raspberry-pi-lite.img
-
-      - name: Upload C++ app
-        uses: actions/upload-artifact@v3
-        with:
-          name: hello-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
-          path: hello
-
-      - name: Upload release image as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ steps.variables.outputs.image_name }}-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
-          path: raspberry-pi-lite.img.zip
-
-      - name: Release when tags is available
+      - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             hello
-            raspberry-pi-lite.img.zip
