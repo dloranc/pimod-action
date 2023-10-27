@@ -25,6 +25,9 @@ jobs:
           IMAGE_NAME=$(basename $IMAGE_URL | cut -d "." -f 1)
           echo "image_name=$IMAGE_NAME" >> $GITHUB_OUTPUT
 
+          IMAGE_CACHE_DIRECTORY="/var/cache/pimod/${IMAGE_URL#https://}"
+          echo "image_cache_directory=$IMAGE_CACHE_DIRECTORY" >> $GITHUB_OUTPUT
+
           VERSION=$(cat VERSION)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
@@ -38,6 +41,7 @@ jobs:
         run: |
           sed -i "s|##IMAGE_URL##|${{ steps.variables.outputs.image_url }}|g" raspberry-pi-lite.Pifile
           sed -i "s|##IMAGE_NAME##|${{ steps.variables.outputs.image_name }}|g" raspberry-pi-lite.Pifile
+          sed -i "s|##IMAGE_CACHE_DIRECTORY##|${{ steps.variables.outputs.image_cache_directory }}|g" raspberry-pi-lite.Pifile
 
       - name: Run pimod example
         uses: Nature40/pimod@master

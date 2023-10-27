@@ -3,8 +3,8 @@ FROM ##IMAGE_URL##
 HOST wget ##IMAGE_URL##.sha256
 HOST ls
 HOST env
-HOST sed -i "s|##IMAGE_NAME##.img.xz|/var/cache/pimod/$(echo "$(echo "##IMAGE_URL##" | sed 's/https:\/\///')")|" ##IMAGE_NAME##.img.xz.sha256
-HOST sha256sum -c *.sha256
+HOST sed -i "s|##IMAGE_NAME##.img.xz|##IMAGE_CACHE_DIRECTORY##|" ##IMAGE_NAME##.img.xz.sha256
+HOST sha256sum -c ##IMAGE_NAME##.img.xz.sha256
 
 RUN apt-get update
 
