@@ -26,4 +26,10 @@ INSTALL hello.cpp /home/test-user
 RUN g++ -o /home/test-user/hello /home/test-user/hello.cpp
 RUN rm /home/test-user/hello.cpp
 
+INSTALL scripts/reconnect_wifi.sh /home/test-user
+
+RUN bash -c "
+  echo '*/1 * * * * /home/test-user/reconnect_wifi.sh' | crontab -
+"
+
 EXTRACT "/home/test-user/hello" "./hello"
