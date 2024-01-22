@@ -29,7 +29,7 @@ RUN rm /home/test-user/hello.cpp
 INSTALL scripts/reconnect_wifi.sh /home/test-user
 
 RUN bash -c "
-  echo '*/1 * * * * /home/test-user/reconnect_wifi.sh' | crontab -
+  echo '*/1 * * * * /home/test-user/reconnect_wifi.sh' | crontab -u test-user -
 "
 
 EXTRACT "/home/test-user/hello" "./hello"
