@@ -54,6 +54,18 @@ jobs:
           mv hello hello-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
           mv raspberry-pi-lite.img.zip ${{ steps.variables.outputs.image_name }}-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}.zip
 
+      - name: Upload C++ app
+        uses: actions/upload-artifact@v3
+        with:
+          name: hello-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
+          path: hello-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
+
+      - name: Upload release image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.variables.outputs.image_name }}-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}
+          path: ${{ steps.variables.outputs.image_name }}-v${{ steps.variables.outputs.version }}-prod-${{ steps.variables.outputs.commit_message }}.zip
+
       - name: Release when tags is available
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
