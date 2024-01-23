@@ -12,19 +12,12 @@ else
   eth_status="DOWN"
 fi
 
-logger "$wlan_status"
-logger "$eth_status"
-
-logger "Trying to reconnect..."
-
 if [ "$eth_status" == "DOWN" ]; then
-  logger "Trying to reconnect to eth0"
   sudo ifconfig eth0 up
 fi
 
 if [ "$wlan_status" == "DOWN" ]; then
   if [ "$eth_status" == "DOWN" ]; then
-    logger "Trying to reconnect to wlan0"
     sudo ifconfig wlan0 up
   fi
 fi
