@@ -12,10 +12,6 @@ else
   eth_status="DOWN"
 fi
 
-if [ "$eth_status" == "DOWN" ]; then
-  sudo ifconfig eth0 up
-fi
-
 if [ "$wlan_status" == "DOWN" ]; then
   if [ "$eth_status" == "DOWN" ]; then
     sudo ifconfig wlan0 up
