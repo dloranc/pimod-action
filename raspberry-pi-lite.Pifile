@@ -28,10 +28,11 @@ RUN rm /home/test-user/hello.cpp
 
 INSTALL scripts/reconnect_wifi.sh /home/test-user
 
+RUN sed -i 's|#cron.*|cron.* /var/log/cron.log|' /etc/rsyslog.conf
+RUN sed -i 's/#EXTRA_OPTS=""/EXTRA_OPTS="-L 4"/' /etc/default/cron
+
 RUN bash -c "
   echo '*/1 * * * * /home/test-user/reconnect_wifi.sh' | crontab -u test-user -
 "
-
-RUN sed -i 's|#cron.*|cron.* /var/log/cron.log|' /etc/rsyslog.conf
 
 EXTRACT "/home/test-user/hello" "./hello"
