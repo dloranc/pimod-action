@@ -32,6 +32,6 @@ RUN bash -c "
   echo '*/1 * * * * /home/test-user/reconnect_wifi.sh' | crontab -u test-user -
 "
 
-RUN sed -i 's/#cron.*/cron.*/' /etc/rsyslog.conf
+RUN sed -i 's|#cron.*|cron.* /var/log/cron.log|' /etc/rsyslog.conf
 
 EXTRACT "/home/test-user/hello" "./hello"
